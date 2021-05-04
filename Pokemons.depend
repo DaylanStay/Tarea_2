@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1620101072 source:f:\auniversidad\fundamentos programacion\tarea 2\pokemons\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620089513 source:f:\auniversidad\fundamentos programacion\tarea 2\pokemons\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007014 f:\auniversidad\fundamentos programacion\tarea 2\pokemons\hashmap.h
+
