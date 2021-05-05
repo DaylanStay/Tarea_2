@@ -32,7 +32,8 @@ pokedex *crearPokedex() {
 
 const char *get_csv_field (char *, int);
 void atraparPokemon(HashMap *, int *, HashMap *mapPokedex);
-int filtro(HashMap *, int);
+void filtro(HashMap *, pokedex *);
+void EvolucionarPokemon(HashMap *, HashMap *);
 
 int main()
 {
@@ -63,7 +64,8 @@ int main()
         //insertMap(mapPokedex, &datos[i].nombre, &datos[i]);
         i++;
     }
-    int flag = 0;
+    filtro(mapPokedex, datos);
+  /*  int flag = 0;
     for(i = 0 ; i < 95 ; i++){
         for(j = i + 1 ; j < 95 ; j++) {
             if(datos[i].numeroPokedex == datos[j].numeroPokedex){
@@ -76,20 +78,21 @@ int main()
         }
         flag = 0;
     }
+*/
 
 
 
-
-    pokedex *p = firstMap(mapPokedex);
+    /*pokedex *p = firstMap(mapPokedex);
     while(p!=NULL) {
         printf("%s | %i | %s | %i | %i | %s | %s | %s | %i | %s | %i\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo, p->evolucionPrevia, p->evolucionPosterior, p->numeroPokedex, p->region, p->existencia);
         p = nextMap(mapPokedex);
-    }
+    }*/
 
     //Menú
     int *auxID = 1;
     atraparPokemon(mapMisPokemones, &auxID, mapPokedex);
-    printf("%d", auxID);
+    //printf("%d", auxID);
+    EvolucionarPokemon(mapMisPokemones,mapPokedex);
     return 0;
 }
 
@@ -169,22 +172,23 @@ const char *get_csv_field (char * tmp, int k) {
 
 }*/
 
-/*int filtro(HashMap* mapPokedex, int num) //Filtro para insertar en funcion importar y agregarPokemon (retorna 0 en caso de que ID no exista y 1 en el contrario)
+void filtro(HashMap* mapPokedex, pokedex* datos) //Filtro para insertar en funcion importar y agregarPokemon (retorna 0 en caso de que ID no exista y 1 en el contrario)
 {
     int flag = 0;
-    pokedex *aux = (pokedex *) calloc(1, sizeof(pokedex));
-    aux = firstMap(mapPokedex);
-    while(aux != NULL)
-    {
-    if(strcmp(aux->nombre, nombre) == 0)
-    {
-        flag = 1;
-      return flag;
+    int i,j;
+    for(i = 0 ; i < 95 ; i++){
+        for(j = i + 1 ; j < 95 ; j++) {
+            if(datos[i].numeroPokedex == datos[j].numeroPokedex){
+                datos[j].existencia++;
+                flag = 1;
+            }
+        }
+        if(flag == 0) {
+            insertMap(mapPokedex, &datos[i].nombre, &datos[i]);
+        }
+        flag = 0;
     }
-    else aux = nextMap(mapPokedex);
-    }
-    return flag;
-}*/
+}
 
 void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex) {
     pokedex *aux = crearPokedex(aux);
@@ -208,16 +212,72 @@ void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex) {
     scanf("%d", &aux->numeroPokedex);
     fflush(stdin);
 
-    aux->id = 96;
-
-    insertMap(mapMisPokemones, &auxID, aux);
-    *auxID += 1;
-    insertMap(mapPokedex, &aux->nombre, aux);
-
-    pokedex *p = firstMap(mapPokedex);
-    while(p!=NULL) {
-        printf("%s | %i | %s | %i | %i | %s | %s | %s | %i | %s\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo, p->evolucionPrevia, p->evolucionPosterior, p->numeroPokedex, p->region);
-        p = nextMap(mapPokedex);
+    aux->id= *auxID;
+    insertMap(mapMisPokemones, &aux->nombre, aux);
+    //aux->id=96;
+    int flag=0;
+    pokedex *c= firstMap(mapPokedex);
+    while(c!=NULL){
+        if(is_equal(c->nombre,aux->nombre) == 1){
+            flag = 1;
+            aux=c;
+            aux->existencia = c->existencia + 1;
+            printf("%i\n",aux->existencia);
+            eraseMap(mapPokedex, &c->nombre);
+            insertMap(mapPokedex, &aux->nombre, aux);
+            break;
+        }
+        c = nextMap(mapPokedex);
+    }
+    if(flag == 0){
+        insertMap(mapPokedex, &aux->nombre,aux);
     }
 
+  /* pokedex *p = firstMap(mapPokedex);
+    while(p!=NULL) {
+        printf("%s | %i | %s | %i | %i | %s | %s | %s | %i | %s | %i\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo, p->evolucionPrevia, p->evolucionPosterior, p->numeroPokedex, p->region, p->existencia);
+        p = nextMap(mapPokedex);
+    }*/
 }
+
+void EvolucionarPokemon(HashMap *mapMisPokemones,HashMap *mapPokedex){
+
+    pokedex *p = firstMap(mapMisPokemones);
+    while(p!=NULL) {
+        printf("%s | %i | %s | %i | %i | %s |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
+        p = nextMap(mapMisPokemones);
+    }
+
+    int aux;
+
+    scanf("%d",&aux);
+
+    pokedex *c = firstMap(mapMisPokemones);
+    while(c != NULL) {
+        if(c->id == aux){
+            if(strcmp(c->evolucionPosterior,"No tiene") == 0){
+                printf("ERROR! POKEMON NO TIENE EVOLUCION");
+            }else{
+                char respaldo[12];
+                strcpy(respaldo,c->nombre);
+                strcpy(c->nombre,c->evolucionPosterior);
+                strcpy(c->evolucionPrevia,respaldo);
+                strcpy(c->evolucionPosterior,"No tiene");
+                c->pc += c->pc * 0.5;
+                c->ps += c->ps * 0.25;
+                eraseMap(mapMisPokemones, &c->id);
+                insertMap(mapMisPokemones, &c->id,c);
+            }
+        }
+        c = nextMap(mapMisPokemones);
+    }
+
+    p = firstMap(mapMisPokemones);
+    while(p!=NULL) {
+        printf("%s | %i | %s | %i | %i | %s |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
+        p = nextMap(mapMisPokemones);
+    }
+
+
+}
+

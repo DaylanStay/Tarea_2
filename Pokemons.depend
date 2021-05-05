@@ -17,3 +17,21 @@
 
 1620007014 f:\auniversidad\fundamentos programacion\tarea 2\pokemons\hashmap.h
 
+1620089513 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007014 c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\hashmap.h
+
+1620192934 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
