@@ -17,7 +17,7 @@
 
 1620007014 f:\auniversidad\fundamentos programacion\tarea 2\pokemons\hashmap.h
 
-1620089513 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\hashmap.c
+1620252513 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\hashmap.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -27,7 +27,43 @@
 
 1620007014 c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\hashmap.h
 
-1620192934 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\main.c
+1620260537 source:c:\users\cesar\desktop\pucv\segundo año\estructura de datos\tarea 2\tarea 2\tarea 2\tarea 2\pokemons\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620252514 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\hashmap.h
+
+1620263183 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620273607 source:f:\descargas\pokemons actualizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 f:\descargas\pokemons actualizado\hashmap.h
+
+1620273680 source:f:\descargas\pokemons actualizado\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
