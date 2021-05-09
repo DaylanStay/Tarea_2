@@ -35,7 +35,7 @@
 	<ctype.h>
 	"hashmap.h"
 
-1620252514 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\hashmap.c
+1620273607 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\hashmap.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -45,13 +45,14 @@
 
 1620007016 c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\hashmap.h
 
-1620263183 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\main.c
+1620284083 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<math.h>
 	<ctype.h>
 	"hashmap.h"
+	"List.h"
 
 1620273607 source:f:\descargas\pokemons actualizado\hashmap.c
 	<stdio.h>
@@ -64,6 +65,110 @@
 1620007016 f:\descargas\pokemons actualizado\hashmap.h
 
 1620273680 source:f:\descargas\pokemons actualizado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620273607 source:f:\auniversidad\fundamentos programacion\pokemons actualizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 f:\auniversidad\fundamentos programacion\pokemons actualizado\hashmap.h
+
+1617587923 source:f:\auniversidad\fundamentos programacion\pokemons actualizado\list.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	"list.h"
+
+1617587798 f:\auniversidad\fundamentos programacion\pokemons actualizado\list.h
+	<stdio.h>
+	<string.h>
+
+1620280501 source:f:\auniversidad\fundamentos programacion\pokemons actualizado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+	"List.h"
+
+1617587798 c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\list.h
+	<stdio.h>
+	<string.h>
+
+1620282366 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemons actualizado\list.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	"list.h"
+
+1620273607 source:c:\users\dylan\downloads\pokemons actualizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 c:\users\dylan\downloads\pokemons actualizado\hashmap.h
+
+1620282366 source:c:\users\dylan\downloads\pokemons actualizado\list.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	"list.h"
+
+1617587798 c:\users\dylan\downloads\pokemons actualizado\list.h
+	<stdio.h>
+	<string.h>
+
+1620434865 source:c:\users\dylan\downloads\pokemons actualizado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+	"List.h"
+
+1620273607 source:f:\descargas\pokemon finalizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 f:\descargas\pokemon finalizado\hashmap.h
+
+1620445767 source:f:\descargas\pokemon finalizado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620273607 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemon finalizado\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620007016 c:\users\felipe\desktop\tarea 2 estructura de datos\pokemon finalizado\hashmap.h
+
+1620445767 source:c:\users\felipe\desktop\tarea 2 estructura de datos\pokemon finalizado\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
