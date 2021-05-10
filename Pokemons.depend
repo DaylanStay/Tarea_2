@@ -176,3 +176,21 @@
 	<ctype.h>
 	"hashmap.h"
 
+1620603353 source:c:\users\dylan\documents\tarea_2\hashmap.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+
+1620603353 c:\users\dylan\documents\tarea_2\hashmap.h
+
+1620607665 source:c:\users\dylan\documents\tarea_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"hashmap.h"
+

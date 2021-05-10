@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include "hashmap.h"
 
-typedef struct{
+typedef struct{//Estructura de pokemones.
     int id;
     char *nombre;
     int pc;
@@ -19,7 +19,7 @@ typedef struct{
     int existencia;
 } pokedex;
 
-pokedex *crearPokedex(){
+pokedex *crearPokedex(){//Función para crear la pokedex.
     pokedex *aux = (pokedex *) malloc(sizeof(pokedex) * 100);
     aux->nombre = (char *) malloc(sizeof(char) * 17);
     aux->sexo = (char *) malloc(sizeof(char) * 7);
@@ -30,6 +30,7 @@ pokedex *crearPokedex(){
     return aux;
 }
 
+//Prototipos de funciones utilizadas en el programa.
 const char *get_csv_field (char *, int);
 void atraparPokemon(HashMap *, int *, HashMap *mapPokedex);
 void filtro(HashMap *, pokedex *);
@@ -43,6 +44,7 @@ void MostrarPorPC(HashMap *);
 void EliminarPokemon(HashMap *, HashMap *);
 void MostrarPorRegion(HashMap *, HashMap *);
 void menu(HashMap *, HashMap *mapPokedex);
+void* exportar(HashMap *);
 
 int main(){
     FILE *archivo = fopen("pokemon Archivo.csv", "r");
@@ -51,10 +53,10 @@ int main(){
     HashMap *mapPokedex = createMap(228);
     HashMap *mapMisPokemones = createMap(130);
 
-    char line[100];
+    char line[86];
     int i = 0, j = 0;
     pokedex *datos = crearPokedex();
-    while(fgets(line, 99, archivo) != NULL){
+    while(fgets(line, 85, archivo) != NULL){
         datos[i].id = atoi(get_csv_field (line, 0));
         datos[i].nombre = (char *)get_csv_field (line, 1);
         datos[i].tipo = (char *)get_csv_field (line, 2);
@@ -72,14 +74,14 @@ int main(){
     filtro(mapPokedex, datos);
     menu(mapMisPokemones, mapPokedex);
 
-    //free(datos);
-    //free(mapPokedex);
-    //free(mapMisPokemones);
-    //fclose(archivo);
+    free(datos);
+    free(mapPokedex);
+    free(mapMisPokemones);
+    fclose(archivo);
     return 0;
 }
 
-const char *get_csv_field (char * tmp, int k){
+const char *get_csv_field (char * tmp, int k){ //Función para leer distintos datos del archivo.
     int open_mark = 0;
     char* ret=(char*) malloc (100*sizeof(char));
     int ini_i=0, i=0;
@@ -118,7 +120,7 @@ const char *get_csv_field (char * tmp, int k){
     return NULL;
 }
 
-void menu(HashMap *mapMisPokemones, HashMap *mapPokedex){ // Funcion para la creacion de menu menu
+void menu(HashMap *mapMisPokemones, HashMap *mapPokedex){ // Función para la creación de menu.
     int n = 1;
     int *auxID = 1;
     while(n != 0){
@@ -126,12 +128,13 @@ void menu(HashMap *mapMisPokemones, HashMap *mapPokedex){ // Funcion para la cre
          printf("1. Atrapar pokemon\n");
          printf("2. Evolucionar pokemon\n");
          printf("3. Buscar pokemon por tipo\n");
-         printf("4. Buscar pokemon por nombre\n");
-         printf("5. Buscar pokemon por nombre pokedex\n");
+         printf("4. Buscar pokemon por nombre (Almacenamiento) \n");
+         printf("5. Buscar pokemon por nombre (Pokedex)\n");
          printf("6. Mostrar todos los pokemones en la pokedex\n");
          printf("7. Mostrar mis pokemones por PC\n");
          printf("8. Eliminar pokemon\n");
          printf("9. Mostrar mis pokemones por region\n");
+         printf("10. Exportar archivo\n");
          printf("0. Salir\n");
          scanf("%d",&n);
          fflush(stdin);
@@ -145,6 +148,7 @@ void menu(HashMap *mapMisPokemones, HashMap *mapPokedex){ // Funcion para la cre
             case 7: MostrarPorPC(mapMisPokemones); break;
             case 8: EliminarPokemon(mapMisPokemones, mapPokedex); break;
             case 9: MostrarPorRegion(mapMisPokemones, mapPokedex); break;
+            case 10: exportar(mapPokedex); break;
             case 0: break;
             default: printf("\nEl numero que ingreso es incorrecto\n"); break;
         }
@@ -152,7 +156,7 @@ void menu(HashMap *mapMisPokemones, HashMap *mapPokedex){ // Funcion para la cre
      }
 }
 
-void filtro(HashMap* mapPokedex, pokedex* datos){ //Filtro para insertar en funcion importar y agregarPokemon (retorna 0 en caso de que ID no exista y 1 en el contrario)
+void filtro(HashMap* mapPokedex, pokedex* datos){ //Filtro para insertar en funcion importar y agregarPokemon (retorna 0 en caso de que ID no exista y 1 en el contrario).
     int flag = 0;
     int i,j;
     int cont = 0;
@@ -171,7 +175,7 @@ void filtro(HashMap* mapPokedex, pokedex* datos){ //Filtro para insertar en func
     }
 }
 
-void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex){
+void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex){ //Función para atrapar pokemon e insertarloo en el almacenamiento.
     pokedex *aux = crearPokedex(aux);
     printf("\nIngrese el nombre del pokemon: ");
     scanf("%s", aux->nombre);
@@ -223,10 +227,10 @@ void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex){
     }
 
     printf("\n***ALMACENAMIENTO POKEMON***\n");
-
+    printf("      NOMBRE     | ID |             TIPO            |  PC  |  PS  |  SEXO    |\n");
     pokedex *p = firstMap(mapMisPokemones);
     while(p!=NULL) {
-        printf("%s | %i | %s | %i | %i |  %s   |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
+        printf("%16s |  %i | %27s | %4i | %4i | %7s  |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
         p = nextMap(mapMisPokemones);
     }
 
@@ -235,13 +239,13 @@ void atraparPokemon(HashMap *mapMisPokemones, int *auxID, HashMap *mapPokedex){
 
 }
 
-void EvolucionarPokemon(HashMap *mapMisPokemones,HashMap *mapPokedex){
+void EvolucionarPokemon(HashMap *mapMisPokemones,HashMap *mapPokedex){ //Función para evolucionar al pokemon actualizando sus datos en el almacenamiento.
 
     pokedex *p = firstMap(mapMisPokemones);
     printf("\n***ALMACENAMIENTO POKEMON***\n");
-    printf("      NOMBRE     | ID |             TIPO            |  PC  |  PS  | SEXO |\n");
+    printf("      NOMBRE     | ID |             TIPO            |  PC  |  PS  |  SEXO    |\n");
     while(p!=NULL) {
-        printf("%16s |  %i | %27s | %4i | %4i |  %s   |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
+        printf("%16s |  %i | %27s | %4i | %4i | %7s  |\n", p->nombre, p->id, p->tipo, p->pc, p->ps, p->sexo);
         p = nextMap(mapMisPokemones);
     }
 
@@ -272,15 +276,15 @@ void EvolucionarPokemon(HashMap *mapMisPokemones,HashMap *mapPokedex){
         insertMap(mapMisPokemones, &c->id,c);
         p = firstMap(mapMisPokemones);
         printf("\n***ALMACENAMIENTO POKEMON***");
-        printf("\n      NOMBRE     | ID |             TIPO            |  PC  |  PS  | SEXO |\n");
+        printf("\n      NOMBRE     | ID |             TIPO            |  PC  |  PS  |  SEXO    |\n");
         while(p!=NULL) {
-            printf("%16s |  %i | %27s | %4i | %4i |  %s   |\n", c->nombre, c->id, c->tipo, c->pc, c->ps, c->sexo);
+            printf("%16s |  %i | %27s | %4i | %4i | %7s  |\n", c->nombre, c->id, c->tipo, c->pc, c->ps, c->sexo);
             p = nextMap(mapMisPokemones);
         }
     }
 }
 
-void BuscarTipo(HashMap *mapMisPokemones){
+void BuscarTipo(HashMap *mapMisPokemones){ //Función para buscar pokemones por tipo en el almacenamiento.
     char auxTipo[28];
     int flag = 0;
     printf("\nIngrese el tipo que desea buscar: ");
@@ -308,13 +312,13 @@ void BuscarTipo(HashMap *mapMisPokemones){
     }
 }
 
-void BuscarNombre(HashMap *mapPokedex){
+void BuscarNombre(HashMap *mapMisPokemones){ //Función para buscar por nombre en el almacenamiento y mostrar por pantalla los o el encontrado.
     char auxNombre[12];
     int flag = 0;
     printf("\nIngrese el nombre del pokemon: ");
     scanf("%[^\n]",auxNombre);
     fflush(stdin);
-    pokedex *c = firstMap(mapPokedex);
+    pokedex *c = firstMap(mapMisPokemones);
 
     while(c!=NULL){
         if(strcmp(c->nombre, auxNombre) == 0){
@@ -325,7 +329,7 @@ void BuscarNombre(HashMap *mapPokedex){
             }
             printf("%16s | %4d | %4d |\n", c->nombre, c->pc, c->ps);
         }
-        c = nextMap(mapPokedex);
+        c = nextMap(mapMisPokemones);
     }
 
     if(flag != 0){
@@ -336,7 +340,7 @@ void BuscarNombre(HashMap *mapPokedex){
     }
 }
 
-void BuscarNombrePokedex(HashMap *mapPokedex){
+void BuscarNombrePokedex(HashMap *mapPokedex){ //Función para buscar por nombre en la pokedex, se muestra por pantalla los o el pokemon encontrado.
     char auxNombre[12];
     int flag = 0;
     printf("\nIngrese el nombre del pokemon: ");
@@ -363,7 +367,7 @@ void BuscarNombrePokedex(HashMap *mapPokedex){
     }
 }
 
-void mostrarPokedex (HashMap *mapPokedex){
+void mostrarPokedex (HashMap *mapPokedex){ //Muestra todos los pokemones de la pokedex actualmente.
     pokedex *p = firstMap(mapPokedex);
     printf("\n***POKEDEX***\n");
     printf("      NOMBRE     |             TIPO            |      PREVIA      |     POSTERIOR    | NUMERO POKEDEX |  REGION  | EXISTENCIA |\n");
@@ -373,14 +377,14 @@ void mostrarPokedex (HashMap *mapPokedex){
     }
 }
 
-int comparar(const void *pivote, const void *item){ //Este qsort nos sirve para ordenar por orden de pc
+int comparar(const void *pivote, const void *item){ //Funcion QSORT que sirve para ordenar.
    pokedex *ptrPivote = (pokedex *) pivote;
    pokedex *ptrItem = (pokedex *) item;
    if(ptrPivote->pc < ptrItem ->pc) return 1;
    return 0;
 }
 
-void MostrarPorPC(HashMap *mapMisPokemones){
+void MostrarPorPC(HashMap *mapMisPokemones){ //Función para mostrar tus pokemones ordenados por puntos de combate.
 
     pokedex *a = NULL;
     a = (pokedex *) malloc(sizeof(pokedex) * 100);
@@ -408,13 +412,13 @@ void MostrarPorPC(HashMap *mapMisPokemones){
 
 }
 
-void EliminarPokemon(HashMap * mapMisPokemones, HashMap * mapPokedex){
+void EliminarPokemon(HashMap * mapMisPokemones, HashMap * mapPokedex){ //Función para eliminar un pokemon de tu almacenamiento.
 
     pokedex *a = firstMap(mapMisPokemones);
     printf("\n***ALMACENAMIENTO POKEMON***\n");
-    printf("      NOMBRE     | ID |             TIPO            |  PC  |  PS  | SEXO |\n");
+    printf("      NOMBRE     | ID |             TIPO            |  PC  |  PS  |  SEXO    |\n");
     while(a!=NULL) {
-        printf("%16s |  %i | %27s | %4i | %4i |  %s   |\n", a->nombre, a->id, a->tipo, a->pc, a->ps, a->sexo);
+        printf("%16s |  %i | %27s | %4i | %4i | %7s  |\n", a->nombre, a->id, a->tipo, a->pc, a->ps, a->sexo);
         a = nextMap(mapMisPokemones);
     }
 
@@ -447,7 +451,7 @@ void EliminarPokemon(HashMap * mapMisPokemones, HashMap * mapPokedex){
     printf("\n***POKEMON ELIMINADO***\n");
 }
 
-void MostrarPorRegion(HashMap *mapMisPokemones,HashMap *mapPokedex){
+void MostrarPorRegion(HashMap *mapMisPokemones,HashMap *mapPokedex){ //Función para mostrar tus pokemones de la región que se escriba.
     char auxRegion[20];
     int cont = 0;
     printf("\nIngrese Region: ");
@@ -475,4 +479,32 @@ void MostrarPorRegion(HashMap *mapMisPokemones,HashMap *mapPokedex){
     }
 
     printf("\nCANTIDAD DE POKEMONES DE LA REGION (%s) EN ALMACENAMIENTO: %d\n", auxRegion, cont);
+}
+
+void* exportar(HashMap * mapPokedex){ //Función para exportar la pokedex actualizada en la carpeta del mismo programa con el nombre indicado.
+    char nombre[14];
+    printf("Ingrese el nombre del archivo: ");
+    fflush(stdin);
+    scanf("%[^\n]",nombre);
+    fflush(stdin);
+    FILE *salidaArchivo;
+    char nombreArchivo[20];
+    snprintf(nombreArchivo, sizeof(nombreArchivo), "%s%s", nombre, ".csv");
+
+    salidaArchivo = fopen(nombreArchivo, "w");
+
+    pokedex *d = (pokedex*) malloc (sizeof(pokedex) * 1);
+
+    d = firstMap(mapPokedex);
+
+    char line[86];
+    while(d != NULL){
+        snprintf(line, sizeof(line), "%i,%s,%s,%i,%i,%s,%s,%s,%i,%s\n", d->id, d->nombre, d->tipo, d->pc, d->ps
+                , d->sexo, d->evolucionPrevia, d->evolucionPosterior, d->numeroPokedex, d->region);
+        fputs(line, salidaArchivo);
+        d = nextMap(mapPokedex);
+    }
+    fclose(salidaArchivo);
+    free(nombreArchivo);
+    free(d);
 }
